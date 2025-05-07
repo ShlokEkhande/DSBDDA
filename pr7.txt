@@ -1,0 +1,48 @@
+import nltk
+
+nltk.download('all')
+
+from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
+from nltk.stem import PorterStemmer, WordNetLemmatizer
+from nltk import pos_tag
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+
+document = "Text analytics includes preprocessing of text data such as removing stop words, stemming, and lemmatization. It helps in extracting useful insights."
+
+
+tokens = word_tokenize(document)
+print("Tokens:", tokens)
+
+pos_tags = pos_tag(tokens)
+print("POS Tags:", pos_tags)
+
+stop_words = set(stopwords.words('english'))
+filtered_tokens = [word for word in tokens if word.lower() not in stop_words]
+print("Tokens after Stop Words Removal:", filtered_tokens)
+
+
+stemmer = PorterStemmer()
+stemmed_tokens = [stemmer.stem(word) for word in filtered_tokens]
+print("Stemmed Tokens:", stemmed_tokens)
+
+
+lemmatizer = WordNetLemmatizer()
+lemmatized_tokens = [lemmatizer.lemmatize(word) for word in filtered_tokens]
+print("Lemmatized Tokens:", lemmatized_tokens)
+
+
+
+documents = [
+    "Text analytics includes preprocessing of text data such as removing stop words.",
+    "Stemming and lemmatization help in normalizing the words.",
+    "TF and IDF are used to convert text into numerical vectors."
+]
+
+vectorizer = TfidfVectorizer()
+tfidf_matrix = vectorizer.fit_transform(documents)
+
+# Convert to array for viewing
+print("TF-IDF Matrix:\n", tfidf_matrix.toarray())
+print("Feature Names:\n", vectorizer.get_feature_names_out())

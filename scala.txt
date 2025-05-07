@@ -1,0 +1,50 @@
+Step 3: Create a Scala Project
+Create a directory for your project (e.g., spark-hello-world).
+
+Inside that directory, create a file named build.sbt:
+
+build.sbt
+name := "SparkHelloWorld"
+
+version := "0.1"
+
+scalaVersion := "2.12.10"  // Scala version used by Spark
+
+libraryDependencies += "org.apache.spark" %% "spark-core" % "3.1.1"  // Spark dependency
+
+Step 4: Write the Scala Program
+Inside your project directory, create a new file called HelloWorld.scala.
+
+import org.apache.spark.sql.SparkSession
+
+object HelloWorld {
+  def main(args: Array[String]): Unit = {
+    // Initialize Spark Session
+    val spark = SparkSession.builder()
+      .appName("HelloWorldApp")
+      .master("local[*]")  // This means Spark will run locally on your computer
+      .getOrCreate()
+
+    // Print Hello World
+    println("Hello, Spark World!")
+
+    // Stop the Spark session
+    spark.stop()
+  }
+}
+
+
+Step 5: Compile and Run the Program
+Now you are ready to run your Scala program using Apache Spark.
+
+5.1 Compile the Project using SBT
+Open your terminal or command prompt and navigate to the project directory.
+
+Run the following command to compile the project:
+
+sbt compile
+5.2 Run the Program using SBT
+After compiling the project, run the program using the following command:
+
+sbt run
+Hello, Spark World!
